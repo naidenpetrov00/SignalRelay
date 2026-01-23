@@ -7,8 +7,8 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# FILE_PATH = r"C:\Users\naide\AppData\Roaming\MetaQuotes\Terminal\930119AA53207C8778B41171FBFFB46F\Common\Files\signals.jsonl"
-FILE_PATH = "/home/naidenpetrov00/.mt5/drive_c/users/naidenpetrov00/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals.jsonl"
+FILE_PATH = r"C:\Users\naide\AppData\Roaming\MetaQuotes\Terminal\Common\Files\signals.jsonl"
+# FILE_PATH = "/home/naidenpetrov00/.mt5/drive_c/users/naidenpetrov00/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals.jsonl"
 
 REQUIRED_FIELDS = {"symbol", "action", "volume"}
 
