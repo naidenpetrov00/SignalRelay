@@ -7,7 +7,9 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-FILE_PATH = r"C:\Users\naide\AppData\Roaming\MetaQuotes\Terminal\Common\Files\signals.jsonl"
+FILE_PATH = (
+    r"C:\Users\naide\AppData\Roaming\MetaQuotes\Terminal\Common\Files\signals.jsonl"
+)
 # FILE_PATH = "/home/naidenpetrov00/.mt5/drive_c/users/naidenpetrov00/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals.jsonl"
 
 REQUIRED_FIELDS = {"symbol", "action", "volume"}
@@ -21,6 +23,7 @@ class TvSignal(BaseModel):
     symbol: str
     action: str
     volume: float
+    stoploss: float
 
 
 @app.post("/tv-webhook")
@@ -29,7 +32,8 @@ async def tv_webhook(signal: TvSignal):
         "id": int(datetime.now().timestamp()),
         "symbol": signal.symbol,
         "action": signal.action,
-        "volume": signal.volume
+        "volume": signal.volume,
+        "stoploss": signal.stoploss,
     }
 
     os.makedirs(os.path.dirname(FILE_PATH), exist_ok=True)
