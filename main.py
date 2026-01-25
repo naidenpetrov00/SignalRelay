@@ -1,44 +1,31 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI
 from datetime import datetime
 import json
 import os
+from typing import Union
 
-from pydantic import BaseModel
+from models.signal import SignalType, TvSignal, SignalPayload
+from services.orders.helpers import classify_signal
+from services.storage import append_signal
+from config import FILE_PATH
 
 app = FastAPI()
 
-FILE_PATH = (
-    r"C:\Users\naide\AppData\Roaming\MetaQuotes\Terminal\Common\Files\signals.jsonl"
-)
-# FILE_PATH = "/home/naidenpetrov00/.mt5/drive_c/users/naidenpetrov00/AppData/Roaming/MetaQuotes/Terminal/Common/Files/signals.jsonl"
+@app.post("/VWAP5m")
+def tv_webhook(signal: Union[TvSignal, SignalPayload]):
+    # Determine type
+    signal_type = classify_signal(signal)
 
-REQUIRED_FIELDS = {"symbol", "action", "volume"}
-
-
-def is_valid_signal(data: dict) -> bool:
-    return REQUIRED_FIELDS.issubset(data.keys())
-
-
-class TvSignal(BaseModel):
-    symbol: str
-    action: str
-    volume: float
-    stoploss: float
-
-
-@app.post("/tv-webhook")
-async def tv_webhook(signal: TvSignal):
+    # Convert to dict for storage
     data = {
         "id": int(datetime.now().timestamp()),
-        "symbol": signal.symbol,
-        "action": signal.action,
-        "volume": signal.volume,
-        "stoploss": signal.stoploss,
+        "symbol": getattr(signal, "symbol", getattr(signal, "ticker", None)),
+        "action": "CLOSE" if signal_type == SignalType.CLOSE else getattr(signal, "action", None),
+        "volume": getattr(signal, "volume", 0),
+        "stoploss": getattr(signal, "stoploss", None),
+        "type": signal_type.value
     }
 
-    os.makedirs(os.path.dirname(FILE_PATH), exist_ok=True)
-
-    with open(FILE_PATH, "a", encoding="utf-8") as f:
-        f.write(json.dumps(data) + "\n")
+    append_signal(FILE_PATH, data)
 
     return {"status": "ok", "written": data}
