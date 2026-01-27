@@ -24,7 +24,7 @@
     "market_position": "{{strategy.market_position}}",
     "market_position_size": "{{strategy.market_position_size}}",
     "prev_market_position": "{{strategy.prev_market_position}}",
-    "prev_market_position_size": "{{strategy.prev_market_position_size}}"
-  },
-  "passphrase": ""
+    "prev_market_position_size": "{{strategy.prev_market_position_size}}",
+    "order_alert_message": "{{strategy.order.alert_message}}"
+  }
 }

@@ -49,7 +49,7 @@ class Strategy(BaseModel):
     order_action: str
     order_contracts: float
     order_price: float
-    order_id: OrderId
+    order_id: OrderId | str
     market_position: str
     market_position_size: float
     prev_market_position: str
@@ -57,8 +57,9 @@ class Strategy(BaseModel):
 
     @field_validator("order_id", mode="before")
     def normalize_order_id(cls, v):
-        if isinstance(v, str) and v.startswith(OrderId.TP.value):
-            return OrderId.TP
+        if isinstance(v, str):
+            if v.startswith(OrderId.TP.value):
+                return OrderId.TP
         return v
 
 
@@ -75,7 +76,7 @@ class SignalPayload(BaseModel):
     strategy: Strategy
     passphrase: Optional[str] = ""
 
-    comment_data: CommentData
+    comment_data: CommentData = Field(default_factory=CommentData)
 
     @model_validator(mode="before")
     def pase_comment_json(cls, model: dict):
