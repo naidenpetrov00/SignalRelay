@@ -27,4 +27,34 @@
     "prev_market_position_size": "{{strategy.prev_market_position_size}}",
     "order_alert_message": "{{strategy.order.alert_message}}"
   }
+},
+{
+  "strategyName": "BTCUSDT 1m Michaels Bands",
+  "order_type": "REAL",
+  "time": "2026-01-27T16:14:01Z",
+  "exchange": "PEPPERSTONE",
+  "timeframe": "1",
+  "ticker": "US500",
+  "leverage": "0",
+  "comment": "Long",
+  "bar": {
+    "time": "2026-01-27T16:14:00Z",
+    "open": "6986.4",
+    "high": "6986.4",
+    "low": "6986.4",
+    "close": "6986.4",
+    "volume": "2"
+  },
+  "strategy": {
+    "position_size": "0.14",
+    "order_action": "buy",
+    "order_contracts": "0.14",
+    "order_price": "6986.4",
+    "order_id": "Long",
+    "market_position": "long",
+    "market_position_size": "0.14",
+    "prev_market_position": "flat",
+    "prev_market_position_size": "0",
+    "order_alert_message": ""
+  }
 }
