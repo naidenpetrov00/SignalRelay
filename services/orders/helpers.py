@@ -1,5 +1,4 @@
-from enum import Enum
-from typing import Union, Tuple
+from typing import Union
 import logging
 
 from models.signal import OrderId, SignalPayload, SignalType, TvSignal
@@ -7,12 +6,12 @@ from models.signal import OrderId, SignalPayload, SignalType, TvSignal
 logger = logging.getLogger("signalrelay.classify_signal")
 
 
-def classify_signal(payload: Union[TvSignal, SignalPayload]) -> Tuple[SignalType, Union[TvSignal, SignalPayload]]:
+def classify_signal(payload: Union[TvSignal, SignalPayload]) -> SignalType:
     symbol = getattr(payload, "symbol", getattr(payload, "ticker", None))
 
     if isinstance(payload, TvSignal):
         logger.info("classify_signal: type=TvSignal symbol=%s result=%s", symbol, SignalType.READY.value)
-        return SignalType.READY, payload
+        return SignalType.READY
     elif isinstance(payload, SignalPayload):
         order_id = payload.strategy.order_id
         if order_id == OrderId.TP or order_id == OrderId.TP.value:
@@ -22,7 +21,7 @@ def classify_signal(payload: Union[TvSignal, SignalPayload]) -> Tuple[SignalType
                 order_id,
                 SignalType.CLOSE.value
             )
-            return SignalType.CLOSE, payload
+            return SignalType.CLOSE
         elif payload.comment_data.tp or payload.comment_data.sl:
             logger.info(
                 "classify_signal: type=SignalPayload symbol=%s tp=%s sl=%s result=%s",
@@ -31,6 +30,6 @@ def classify_signal(payload: Union[TvSignal, SignalPayload]) -> Tuple[SignalType
                 bool(payload.comment_data.sl),
                 SignalType.EXECUTE.value,
             )
-            return SignalType.EXECUTE, payload
+            return SignalType.EXECUTE
     logger.info("classify_signal: type=unknown symbol=%s result=%s", symbol, SignalType.READY.value)
-    return SignalType.READY, payload
+    return SignalType.READY

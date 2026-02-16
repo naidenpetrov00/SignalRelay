@@ -3,6 +3,7 @@ import logging
 
 from config import FILE_PATH
 from models.signal import SignalPayload, SignalType, TvSignal
+from services.orders.helpers import classify_signal
 from services.storage import append_signal
 
 logger = logging.getLogger("signalrelay.signal_distributor")
@@ -48,19 +49,13 @@ def _build_close_record(signal: SignalPayload) -> dict:
     }
 
 
-def signal_distributor(signal_type: SignalType, signal: TvSignal | SignalPayload) -> dict:
+def signal_distributor(signal: TvSignal) -> dict:
+    signal_type = classify_signal(signal)
+    
     if signal_type == SignalType.READY:
         if not isinstance(signal, TvSignal):
             raise TypeError("SignalType.READY expects TvSignal payload")
         record = _build_ready_record(signal)
-    elif signal_type == SignalType.EXECUTE:
-        if not isinstance(signal, SignalPayload):
-            raise TypeError("SignalType.EXECUTE expects SignalPayload payload")
-        record = _build_execute_record(signal)
-    elif signal_type == SignalType.CLOSE:
-        if not isinstance(signal, SignalPayload):
-            raise TypeError("SignalType.CLOSE expects SignalPayload payload")
-        record = _build_close_record(signal)
     else:
         raise ValueError(f"Unsupported signal type: {signal_type}")
 

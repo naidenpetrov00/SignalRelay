@@ -1,12 +1,10 @@
 from fastapi import FastAPI, HTTPException, Query, Request
 import os
 import logging
-from typing import Union
 
 from dotenv import load_dotenv
 
-from models.signal import TvSignal, SignalPayload
-from services.orders.helpers import classify_signal
+from models.signal import TvSignal
 from services.orders.signal_distributor import signal_distributor
 
 load_dotenv()
@@ -20,9 +18,9 @@ if not SECRET:
 
 @app.post("/VWAP5m")
 def tv_webhook(
-        signal: Union[TvSignal, SignalPayload],
-        request: Request,
-        key: str = Query(..., description="App secret"),
+    signal: TvSignal,
+    request: Request,
+    key: str = Query(..., description="App secret"),
 ):
     logger.info("Request:%s", request)
 
@@ -33,7 +31,6 @@ def tv_webhook(
         )
         raise HTTPException(status_code=401, detail="unauthorized")
 
-    signal_type, signal = classify_signal(signal)
-    data = signal_distributor(signal_type, signal)
+    data = signal_distributor(signal)
 
     return {"status": "ok", "written": data}
