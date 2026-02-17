@@ -9,8 +9,13 @@ from services.storage import append_signal
 logger = logging.getLogger("signalrelay.signal_distributor")
 
 
+def _timestamp_id() -> int:
+    return int(datetime.now(timezone.utc).timestamp() * 1000)
+
+
 def _build_ready_record(signal: TvSignal) -> dict:
     return {
+        "id": _timestamp_id(),
         "type": SignalType.READY.value,
         "received_at": datetime.now(timezone.utc).isoformat(),
         "symbol": signal.symbol,
@@ -22,6 +27,7 @@ def _build_ready_record(signal: TvSignal) -> dict:
 
 def _build_execute_record(signal: SignalPayload) -> dict:
     return {
+        "id": _timestamp_id(),
         "type": SignalType.EXECUTE.value,
         "received_at": datetime.now(timezone.utc).isoformat(),
         "strategy_name": signal.strategyName,
@@ -38,6 +44,7 @@ def _build_execute_record(signal: SignalPayload) -> dict:
 
 def _build_close_record(signal: SignalPayload) -> dict:
     return {
+        "id": _timestamp_id(),
         "type": SignalType.CLOSE.value,
         "received_at": datetime.now(timezone.utc).isoformat(),
         "strategy_name": signal.strategyName,
