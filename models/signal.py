@@ -6,6 +6,8 @@ import json
 class TvSignal(BaseModel):
     symbol: str
     action: str
+    marginSize: float
+    riskSize: float
     volume: float
     stoploss: float
 

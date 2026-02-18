@@ -20,7 +20,6 @@ def _build_ready_record(signal: TvSignal) -> dict:
         "received_at": datetime.now(timezone.utc).isoformat(),
         "symbol": signal.symbol,
         "action": signal.action,
-        "volume": signal.volume,
         "stoploss": signal.stoploss,
     }
 
