@@ -6,10 +6,11 @@ import json
 class TvSignal(BaseModel):
     symbol: str
     action: str
-    marginSize: float
-    riskSize: float
-    volume: float
+    crossedPrice: float
     stoploss: float
+    marginSize: float = 0.0
+    riskSize: float = 0.0
+    volume: float = 0.1
 
 class SignalType(str, Enum):
     READY = "READY"
