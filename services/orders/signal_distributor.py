@@ -1,7 +1,7 @@
 from datetime import datetime, timezone
 import logging
 
-from config import FILE_PATH
+from config import DEFAULT_READY_SIGNAL_PATH, DEFAULT_TP_READY_SIGNAL_PATH
 from models.signal import SignalPayload, SignalType, TvSignal
 from services.orders.helpers import classify_signal
 from services.storage import append_signal
@@ -22,6 +22,18 @@ def _build_ready_record(signal: TvSignal) -> dict:
         "action": signal.action,
         "crossedPrice": signal.crossedPrice,
         "stoploss": signal.stoploss,
+        "stoploss": signal.tpType,
+    }
+
+
+def _build_tp_ready_record(signal: TvSignal) -> dict:
+    return {
+        "id": _timestamp_id(),
+        "type": SignalType.TPREADY.value,
+        "received_at": datetime.now(timezone.utc).isoformat(),
+        "symbol": signal.symbol,
+        "action": signal.action,
+        "closePart": signal.closePart,
     }
 
 
@@ -58,15 +70,18 @@ def _build_close_record(signal: SignalPayload) -> dict:
 
 def signal_distributor(signal: TvSignal) -> dict:
     signal_type = classify_signal(signal)
-    
+
     if signal_type == SignalType.READY:
         if not isinstance(signal, TvSignal):
             raise TypeError("SignalType.READY expects TvSignal payload")
         record = _build_ready_record(signal)
+        append_signal(DEFAULT_READY_SIGNAL_PATH, record)
+    elif signal_type == SignalType.TPREADY:
+        record = _build_tp_ready_record(signal)
+        append_signal(DEFAULT_TP_READY_SIGNAL_PATH, record)
     else:
         raise ValueError(f"Unsupported signal type: {signal_type}")
 
-    append_signal(FILE_PATH, record)
     logger.info(
         "signal_distributor: type=%s symbol=%s",
         record["type"],

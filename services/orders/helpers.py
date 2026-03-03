@@ -10,8 +10,12 @@ def classify_signal(payload: Union[TvSignal, SignalPayload]) -> SignalType:
     symbol = getattr(payload, "symbol", getattr(payload, "ticker", None))
 
     if isinstance(payload, TvSignal):
-        logger.info("classify_signal: type=TvSignal symbol=%s result=%s", symbol, SignalType.READY.value)
-        return SignalType.READY
+        if payload.action == SignalType.READY:
+            logger.info("classify_signal: type=TvSignal symbol=%s result=%s", symbol, SignalType.READY.value)
+            return SignalType.READY
+        elif payload.action == SignalType.TPREADY:
+            logger.info("classify_signal: type=TvSignal symbol=%s result=%s", symbol, SignalType.READY.value)
+            return SignalType.READY
     elif isinstance(payload, SignalPayload):
         order_id = payload.strategy.order_id
         if order_id == OrderId.TP or order_id == OrderId.TP.value:

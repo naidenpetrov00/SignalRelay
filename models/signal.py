@@ -3,19 +3,31 @@ from typing import Optional, Union
 from pydantic import BaseModel, Field, field_validator, model_validator, validator
 import json
 
+
+class TPClosePart(str, Enum):
+    FIRST = "FIRST"
+    LAST = "LAST"
+    FULL = "FULL"
+
+
 class TvSignal(BaseModel):
     symbol: str
     action: str
-    crossedPrice: float
-    stoploss: float
+    crossedPrice: float = 0.0
+    stoploss: float = 0.0
+    tpType: int = 0
     marginSize: float = 0.0
     riskSize: float = 0.0
     volume: float = 0.1
+    closePart: Optional[TPClosePart]
+
 
 class SignalType(str, Enum):
     READY = "READY"
+    TPREADY = "TPREADY"
     EXECUTE = "EXECUTE"
     CLOSE = "CLOSE"
+
 
 class OrderId(Enum):
     BUY = "BUY"
