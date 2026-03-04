@@ -24,7 +24,7 @@ class TvSignal(BaseModel):
 
 class SignalType(str, Enum):
     READY = "READY"
-    TPREADY = "TPREADY"
+    TPREADY = "TPReady"
     EXECUTE = "EXECUTE"
     CLOSE = "CLOSE"
 
