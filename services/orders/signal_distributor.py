@@ -33,6 +33,7 @@ def _build_tp_ready_record(signal: TvSignal) -> dict:
         "received_at": datetime.now(timezone.utc).isoformat(),
         "symbol": signal.symbol,
         "action": signal.action,
+        "crossedPrice": signal.crossedPrice,
         "closePart": signal.closePart,
     }
 
