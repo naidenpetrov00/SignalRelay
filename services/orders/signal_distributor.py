@@ -22,7 +22,7 @@ def _build_ready_record(signal: TvSignal) -> dict:
         "action": signal.action,
         "crossedPrice": signal.crossedPrice,
         "stoploss": signal.stoploss,
-        "tpType": signal.tpType,
+        "positionQuantity": signal.positionQuantity,
     }
 
 

@@ -15,7 +15,7 @@ class TvSignal(BaseModel):
     action: str
     crossedPrice: float = 0.0
     stoploss: float = 0.0
-    tpType: int = 0
+    positionQuantity: int = 0
     marginSize: float = 0.0
     riskSize: float = 0.0
     volume: float = 0.1
