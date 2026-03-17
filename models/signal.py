@@ -10,16 +10,12 @@ class TPClosePart(str, Enum):
     FULL = "FULL"
 
 
-class TvSignal(BaseModel):
-    symbol: str
-    action: str
-    crossedPrice: float = 0.0
-    stoploss: float = 0.0
-    positionQuantity: int = 0
-    marginSize: float = 0.0
-    riskSize: float = 0.0
-    volume: float = 0.1
-    closePart: Optional[TPClosePart]
+class OrderId(Enum):
+    BUY = "BUY"
+    SELL = "SELL"
+    TP = "Close entry(s) order strategy.close"
+    SL = "SL"
+    EXIT_SHORT = "Exit Short"
 
 
 class SignalType(str, Enum):
@@ -29,15 +25,20 @@ class SignalType(str, Enum):
     CLOSE = "CLOSE"
 
 
-class OrderId(Enum):
-    BUY = "BUY"
-    SELL = "SELL"
-    TP = "Close entry(s) order strategy.close"
-    SL = "SL"
-    EXIT_SHORT = "Exit Short"
+class TvSignal(BaseModel):
+    symbol: str
+    signalType: SignalType
+    action: Optional[OrderId]
+    crossedPrice: float = 0.0
+    stoploss: float = 0.0
+    positionQuantity: int = 1
+    marginSize: float = 0.0
+    riskSize: float = 0.0
+    volume: float = 0.1
+    closePart: Optional[TPClosePart]
 
 
-class OrderType(Enum):
+class OrderType(str, Enum):
     MARKET = "MARKET"
     LIMIT = "LIMIT"
 
