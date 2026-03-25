@@ -15,6 +15,16 @@ SECRET = os.getenv("SIGNAL_RELAY_SECRET")
 if not SECRET:
     raise RuntimeError("SIGNAL_RELAY_SECRET is not set")
 
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    print(exc.errors())
+    return JSONResponse(
+        status_code=422,
+        content={"detail": exc.errors()},
+    )
 
 @app.post("/VWAP5m")
 def tv_webhook(

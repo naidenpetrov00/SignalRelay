@@ -10,7 +10,7 @@ class TPClosePart(str, Enum):
     FULL = "FULL"
 
 
-class OrderId(Enum):
+class OrderId(str, Enum):
     BUY = "BUY"
     SELL = "SELL"
     TP = "Close entry(s) order strategy.close"
@@ -28,14 +28,15 @@ class SignalType(str, Enum):
 class TvSignal(BaseModel):
     symbol: str
     signalType: SignalType
-    action: Optional[OrderId]
+    action: Optional[OrderId] = None
     crossedPrice: float = 0.0
     stoploss: float = 0.0
     positionQuantity: int = 1
     marginSize: float = 0.0
     riskSize: float = 0.0
     volume: float = 0.1
-    closePart: Optional[TPClosePart]
+    closePart: Optional[TPClosePart] = None
+
 
 
 class OrderType(str, Enum):
