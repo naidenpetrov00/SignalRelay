@@ -31,6 +31,7 @@ class TvSignal(BaseModel):
     action: Optional[OrderId] = None
     crossedPrice: float = 0.0
     stoploss: float = 0.0
+    takeProfit: float = 0.0
     positionQuantity: int = 1
     marginSize: float = 0.0
     riskSize: float = 0.0

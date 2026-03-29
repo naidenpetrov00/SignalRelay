@@ -22,6 +22,7 @@ def _build_ready_record(signal: TvSignal) -> dict:
         "action": signal.action,
         "crossedPrice": signal.crossedPrice,
         "stoploss": signal.stoploss,
+        "takeProfit": signal.takeProfit,
         "positionQuantity": signal.positionQuantity,
     }
 
@@ -32,7 +33,7 @@ def _build_tp_ready_record(signal: TvSignal) -> dict:
         "type": SignalType.TPREADY.value,
         "received_at": datetime.now(timezone.utc).isoformat(),
         "symbol": signal.symbol,
-        "action": signal.action,
+        "signalType": signal.signalType,
         "crossedPrice": signal.crossedPrice,
         "closePart": signal.closePart,
     }
