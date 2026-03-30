@@ -27,17 +27,17 @@ class SignalType(str, Enum):
 
 class TvSignal(BaseModel):
     symbol: str
-    signalType: SignalType
     action: Optional[OrderId] = None
+    signalType: SignalType
     crossedPrice: float = 0.0
     stoploss: float = 0.0
     takeProfit: float = 0.0
+    moveToBePrice: float = 0.0
     positionQuantity: int = 1
     marginSize: float = 0.0
     riskSize: float = 0.0
     volume: float = 0.1
     closePart: Optional[TPClosePart] = None
-
 
 
 class OrderType(str, Enum):
