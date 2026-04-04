@@ -34,6 +34,7 @@ class TvSignal(BaseModel):
     takeProfit: float = 0.0
     moveToBePrice: float = 0.0
     positionQuantity: int = 1
+    firstCandleTpInvalid: bool
     marginSize: float = 0.0
     riskSize: float = 0.0
     volume: float = 0.1
