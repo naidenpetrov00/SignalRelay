@@ -6,7 +6,7 @@ import json
 
 class TPClosePart(str, Enum):
     FIRST = "FIRST"
-    LAST = "LAST"
+    SECOND = "SECOND"
     FULL = "FULL"
 
 
