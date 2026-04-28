@@ -1,6 +1,11 @@
 {
   "symbol": "US500",
   "action": "BUY",
-  "volume": 0.1,
-  "stoploss": 0
+  "signalType": "READY",
+  "crossedPrice": 7176.9,
+  "stoploss": 7174.2,
+  "takeProfit": 7196.9,
+  "moveToBePrice": 7177.9,
+  "positionQuantity": 2,
+  "firstCandleTpInvalid": false
 }
