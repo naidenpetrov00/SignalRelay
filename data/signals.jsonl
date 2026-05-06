@@ -1,5 +1,14 @@
-{"id": 1768924585, "symbol": "string", "action": "string", "volume": 0.0}
-{"id": 1768924594, "symbol": "string", "action": "string", "volume": 0.0}
-{"id": 1768924596, "symbol": "string", "action": "string", "volume": 0.0}
-{"id": 1768924597, "symbol": "string", "action": "string", "volume": 0.0}
-{"id": 1768924597, "symbol": "string", "action": "string", "volume": 0.0}
+{
+  "id": 1776412900,
+  "type": "READY",
+  "received_at": "2026-04-17T07:39:38.263234+00:00",
+  "symbol": "US500",
+  "action": "BUY",
+  "signalType": "READY",
+  "crossedPrice": 7049.9,
+  "stoploss": 7046.9,
+  "takeProfit": 7068.7,
+  "moveToBePrice": 7047.7,
+  "positionQuantity": 2,
+  "firstCandleTpInvalid": false
+}

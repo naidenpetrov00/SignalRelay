@@ -1,0 +1,9 @@
+{
+  "id": 1776413900,
+  "type": "TPReady",
+  "received_at": "2026-04-17T07:48:44.750005+00:00",
+  "symbol": "US500",
+  "signalType": "TPReady",
+  "takeProfit": 7048.2,
+  "closePart": "FIRST"
+}
