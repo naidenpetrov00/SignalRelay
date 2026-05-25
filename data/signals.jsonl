@@ -10,5 +10,6 @@
   "takeProfit": 7068.7,
   "moveToBePrice": 7047.7,
   "positionQuantity": 2,
-  "firstCandleTpInvalid": false
+  "firstCandleTpInvalid": false,
+  "vwapZone": 1
 }

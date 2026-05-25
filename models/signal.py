@@ -39,6 +39,8 @@ class TvSignal(BaseModel):
     riskSize: float = 0.0
     volume: float = 0.1
     closePart: Optional[TPClosePart] = None
+    vwapZone: Optional[int]
+    vwapTpZone: Optional[int]
 
 
 class OrderType(str, Enum):

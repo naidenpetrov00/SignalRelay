@@ -27,6 +27,7 @@ def _build_ready_record(signal: TvSignal) -> dict:
         "moveToBePrice": signal.moveToBePrice,
         "positionQuantity": signal.positionQuantity,
         "firstCandleTpInvalid": signal.firstCandleTpInvalid,
+        "vwapZone": signal.vwapZone,
     }
 
 
@@ -39,6 +40,7 @@ def _build_tp_ready_record(signal: TvSignal) -> dict:
         "signalType": signal.signalType,
         "takeProfit": signal.takeProfit,
         "closePart": signal.closePart,
+        "vwapTpZone": signal.vwapTpZone,
     }
 
 
