@@ -25,6 +25,8 @@ def _build_ready_record(signal: TvSignal) -> dict:
         "stoploss": signal.stoploss,
         "takeProfit": signal.takeProfit,
         "moveToBePrice": signal.moveToBePrice,
+        "marginSize": signal.marginSize,
+        "riskSize": signal.riskSize,
         "positionQuantity": signal.positionQuantity,
         "firstCandleTpInvalid": signal.firstCandleTpInvalid,
         "vwapZone": signal.vwapZone,
