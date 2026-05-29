@@ -38,6 +38,8 @@ class TvSignal(BaseModel):
     marginSize: float = 0.0
     riskSize: float = 0.0
     volume: float = 0.1
+    minSlInPips: int = 0
+    maxSlInPips: int = 0
     closePart: Optional[TPClosePart] = None
     vwapZone: Optional[int] = None
     vwapTpZone: Optional[int] = None

@@ -27,6 +27,8 @@ def _build_ready_record(signal: TvSignal) -> dict:
         "moveToBePrice": signal.moveToBePrice,
         "marginSize": signal.marginSize,
         "riskSize": signal.riskSize,
+        "minSlInPips": signal.minSlInPips,
+        "maxSlInPips": signal.maxSlInPips,
         "positionQuantity": signal.positionQuantity,
         "firstCandleTpInvalid": signal.firstCandleTpInvalid,
         "vwapZone": signal.vwapZone,
